@@ -28,7 +28,14 @@ final TextEditingController _usernameController=TextEditingController(text: '');
          Spacing.h32,
          const AuthDivider(),
          Spacing.h32,
-       const SsoLogo(),
+       Row(
+        mainAxisSize:MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:  [
+        SsoLogo(link: 'assets/images/google.png'),
+       SsoLogo(link: 'assets/images/apple.png'),
+       SsoLogo(link: 'assets/images/facebook.png'),
+       ],)
       ],
       ),
     );
