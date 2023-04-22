@@ -15,8 +15,9 @@ class AuthDivider extends StatelessWidget {
         Container(
           width:42 ,height: 1,color:Colors.black26,
         ),
-        Spacing.h8,
+        Spacing.v4,
         const Text('Or continue with'),
+        Spacing.v4,
          Container(
           width:42 ,height: 1,color:Colors.black26,
         ),

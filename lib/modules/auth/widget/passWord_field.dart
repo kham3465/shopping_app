@@ -51,7 +51,7 @@ child: TextField(
   controller: widget.controller,
   decoration: InputDecoration(
     border: InputBorder.none,hintText: 'Enter password',
-    contentPadding: EdgeInsets.all(16),
+    contentPadding: const EdgeInsets.all(16),
      suffixIcon: 
        Align(
             widthFactor: 1.0,

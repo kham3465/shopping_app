@@ -13,4 +13,5 @@ class Spacing{
   static const h16=SizedBox(height: 16,);
   static const h24=SizedBox(height: 24,);
   static const h32=SizedBox(height: 32,);
+  static const h42=SizedBox(height: 42,);
 }
