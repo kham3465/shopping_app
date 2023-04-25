@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../themes/app_colors.dart';
 import '../widget/price.dart';
+import '../widget/product_info.dart';
 
 class Product extends StatelessWidget {
   const Product({super.key});
@@ -17,25 +18,33 @@ class Product extends StatelessWidget {
       body:Stack(
         children: [
           _buildBackground(),
-          Spacing.h32,
+          Spacing.h42,
           SafeArea(
           child: 
           Column(
-    children: [        
-           Row(           
-            mainAxisAlignment: MainAxisAlignment.end,           
-            children:[             
-              Container(
-           child: const Text('Product',
-           style: TextStyle(fontSize: 30),
+    children: [   
+           
+           SizedBox(
+            height: 400,
+             child: Row(   
+                      
+              // mainAxisAlignment: MainAxisAlignment.end,  
+              crossAxisAlignment: CrossAxisAlignment.start,
+                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children:const [   
+                Icon(Icons.arrow_back),                 
+                Text('Product',
+                style: TextStyle(fontSize: 30),
+                ),
+              
+             Icon(Icons.trolley)
+                     ,],     
+                  
+                 ),
            ),
-          ),
-          Spacing.v32,Spacing.v32,Spacing.v12,
-          const Icon(Icons.trolley)
-          ,Spacing.v32
-          ],
-          ),
-        ])
+const ProductInfo()
+      ]
+        )
       ),
       
 
@@ -53,17 +62,16 @@ Widget _buildBackground(){
     
     alignment: Alignment.topLeft,
 
-    child:AspectRatio(aspectRatio:150/200,child:    Container(
+    // child:AspectRatio(aspectRatio:75/100,child:   
+     child:Container(
+      height: 455,
   decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(40),
+    borderRadius: BorderRadius.circular(32),
     image: const DecorationImage(
       image: AssetImage('assets/images/image 1.png'),
-      fit: BoxFit.fill,
+      fit: BoxFit.cover,
     ),
   ),
-  ))
-
+  )
   );
-  
-
 }

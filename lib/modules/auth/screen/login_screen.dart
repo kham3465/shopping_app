@@ -16,7 +16,9 @@ class LoginScreen extends StatelessWidget {
         SafeArea(
           child: 
         Column(
-          children:[Spacing.h32, Container(
+          children:[
+            Spacing.h32, 
+            Container(
           alignment: Alignment.center,
               
               height: 150,
