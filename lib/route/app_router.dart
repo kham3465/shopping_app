@@ -4,8 +4,12 @@
 import 'package:app2/modules/auth/screen/login_screen.dart';
 import 'package:app2/modules/auth/screen/product.dart';
 import 'package:app2/modules/auth/screen/sign_up_screen.dart';
+import 'package:app2/modules/auth/widget/items.dart';
 import 'package:app2/route/router_name.dart';
 import 'package:flutter/material.dart';
+
+import '../modules/auth/screen/cart.dart';
+import '../modules/auth/screen/home.dart';
 
 class AppRouter{
   AppRouter._instance();
@@ -24,7 +28,15 @@ class AppRouter{
        return MaterialPageRoute(builder: (context)=>const Product(),
        settings: const RouteSettings(name: RouteName.product)
        );
-       
+        case RouteName.home:
+       return MaterialPageRoute(builder: (context)=>const Home(),
+       settings: const RouteSettings(name: RouteName.home)
+       );
+            case RouteName.cart:
+       return MaterialPageRoute(builder: (context)=>Cart(product:{}),
+       settings: const RouteSettings(name: RouteName.cart)
+       );
+      
      default:
    }
    return null;

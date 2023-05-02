@@ -8,7 +8,7 @@ import '../../../themes/app_colors.dart';
 
 
 class TitlePrice extends StatelessWidget {
-  const TitlePrice({super.key});
+const TitlePrice({super.key});
 
 @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class TitlePrice extends StatelessWidget {
                 children: [
                   Container(
                     
-                    child: Text('115.00',
+                    child: Text('\$115.00',
                     style: TextStyle(
 fontWeight: FontWeight.bold,
 fontSize: 28,color:AppColors.primary500

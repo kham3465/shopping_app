@@ -22,6 +22,7 @@ class SignUp extends StatelessWidget {
         children:  [
     _buildBackground(),
     SafeArea(
+      child:SingleChildScrollView(
           child: 
         Column(
           children:[Spacing.h32, Container(
@@ -35,7 +36,7 @@ class SignUp extends StatelessWidget {
           ],
         )
       )
-
+    )
 
 
 

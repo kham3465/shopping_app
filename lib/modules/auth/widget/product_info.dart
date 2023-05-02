@@ -38,20 +38,6 @@ class ProductInfo extends StatelessWidget {
         const ColorOption(),
         Spacing.h2,
         const Paragrap(),
-        Stack(
-          children: <Widget>[
-            Container(
-          child: Image.asset('assets/images/Rectangle 6.png'),
-        Positioned(
-      child: Text('kham'),
-    ),
-            )
-          ],
-        )
-       
-      
-
-
       ]
       );
       

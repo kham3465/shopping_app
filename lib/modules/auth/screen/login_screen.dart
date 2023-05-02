@@ -14,7 +14,8 @@ class LoginScreen extends StatelessWidget {
       children: [
         _buildBackground(),
         SafeArea(
-          child: 
+          child:SingleChildScrollView(
+                    child: 
         Column(
           children:[
             Spacing.h32, 
@@ -28,7 +29,7 @@ class LoginScreen extends StatelessWidget {
         LoginForm()
           ],
         )
-      )
+          ))
       ]
       )
     );

@@ -16,7 +16,7 @@ final _focusNode=FocusNode();
 bool _isFocused=false;
 final _defaultBorder=Border.all(color: AppColors.primary300,width: 1);
 final _focusedBorder=Border.all(color: AppColors.primary400,width: 2);
-bool _obscureText=false;
+ bool _obscureText=true;
 @override
 void initState(){
   _focusNode.addListener(_onFocusChange);
@@ -24,12 +24,12 @@ void initState(){
   }
   void _onObscureChange(){
     setState(() {
-      _isFocused=_focusNode.hasFocus;
+     _obscureText= !_obscureText;
     });
   }
   void _onFocusChange(){
     setState((){
-_obscureText =!_obscureText;
+ _isFocused=_focusNode.hasFocus;
     });
   
   
@@ -50,7 +50,7 @@ _obscureText =!_obscureText;
 child: TextField(
   controller: widget.controller,
   decoration: InputDecoration(
-    border: InputBorder.none,hintText: 'Enter password',
+    border: InputBorder.none,hintText:widget.hintText,
     contentPadding: const EdgeInsets.all(16),
      suffixIcon: 
        Align(
@@ -59,8 +59,8 @@ child: TextField(
             child : GestureDetector(
               onTap:_onObscureChange,
               child:
-            _obscureText? 
-             const Icon(
+            _obscureText
+            ? const Icon(
               Icons.remove_red_eye,
               color: Colors.black54,)
               : const Icon(

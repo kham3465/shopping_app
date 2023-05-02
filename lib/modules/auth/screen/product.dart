@@ -31,14 +31,18 @@ class Product extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.end,  
               crossAxisAlignment: CrossAxisAlignment.start,
                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children:const [   
+              children: [   
                 Icon(Icons.arrow_back),                 
                 Text('Product',
                 style: TextStyle(fontSize: 30),
                 ),
-              
-             Icon(Icons.trolley)
-                     ,],     
+               GestureDetector(
+                onTap:() {
+                 Navigator.pushNamed(context, '/home');
+               },
+               child:Icon(Icons.shopping_cart_outlined),),
+         
+                     ],     
                   
                  ),
            ),
