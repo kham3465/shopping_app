@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -47,30 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB4HtAK7izB7WbooOngNohEev2cxFUzF1I',
-    appId: '1:91545569872:web:4ca5a32dae02d7b0ba1f55',
-    messagingSenderId: '91545569872',
-    projectId: 'emg-shop',
-    authDomain: 'emg-shop.firebaseapp.com',
-    storageBucket: 'emg-shop.appspot.com',
-    measurementId: 'G-GG2QBXT6KE',
+    apiKey: 'AIzaSyA75use-_osDY2kSTpyBL9bkesWt8__Up0',
+    appId: '1:330142015513:web:9cf471a55d5f6caebeca88',
+    messagingSenderId: '330142015513',
+    projectId: 'shopping-app-6275f',
+    authDomain: 'shopping-app-6275f.firebaseapp.com',
+    storageBucket: 'shopping-app-6275f.appspot.com',
+    measurementId: 'G-H1LMPL8B49',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBLw8j6qW9XvBEznMJs_uZAuu4uru_ez_Y',
-    appId: '1:91545569872:android:6d031bcaa7b2c825ba1f55',
-    messagingSenderId: '91545569872',
-    projectId: 'emg-shop',
-    storageBucket: 'emg-shop.appspot.com',
+    apiKey: 'AIzaSyBIAl0F_M41ZTLKnWuDT4zKXlMbGe3EONQ',
+    appId: '1:330142015513:android:a3a31b2e16e17ba8beca88',
+    messagingSenderId: '330142015513',
+    projectId: 'shopping-app-6275f',
+    storageBucket: 'shopping-app-6275f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAGXxtE7b26aAXTdENTUsOx1SqWvPIUSnA',
-    appId: '1:91545569872:ios:f8b26342c0c881fdba1f55',
-    messagingSenderId: '91545569872',
-    projectId: 'emg-shop',
-    storageBucket: 'emg-shop.appspot.com',
-    iosClientId: '91545569872-ponkpe8jihe9e2mi221od1208k393c44.apps.googleusercontent.com',
-    iosBundleId: 'com.emglab.emgShop',
+    apiKey: 'AIzaSyClErrI6qLOCFPTzvEanivc-3lTs5uIVBI',
+    appId: '1:330142015513:ios:c5e10c68d30d7d88beca88',
+    messagingSenderId: '330142015513',
+    projectId: 'shopping-app-6275f',
+    storageBucket: 'shopping-app-6275f.appspot.com',
+    iosClientId: '330142015513-2mlmllgod5u2acn0eue6r0q0l5571tt2.apps.googleusercontent.com',
+    iosBundleId: 'com.example.app2',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyClErrI6qLOCFPTzvEanivc-3lTs5uIVBI',
+    appId: '1:330142015513:ios:c5e10c68d30d7d88beca88',
+    messagingSenderId: '330142015513',
+    projectId: 'shopping-app-6275f',
+    storageBucket: 'shopping-app-6275f.appspot.com',
+    iosClientId: '330142015513-2mlmllgod5u2acn0eue6r0q0l5571tt2.apps.googleusercontent.com',
+    iosBundleId: 'com.example.app2',
   );
 }
