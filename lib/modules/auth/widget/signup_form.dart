@@ -1,4 +1,4 @@
-import 'package:app2/modules/auth/screen/auth_button.dart';
+import 'package:app2/modules/auth/widget/auth_button.dart';
 import 'package:app2/modules/auth/widget/auth_divider.dart';
 import 'package:app2/modules/auth/widget/info_field.dart';
 import 'package:app2/modules/auth/widget/passWord_field.dart';

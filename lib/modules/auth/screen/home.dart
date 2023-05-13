@@ -1,3 +1,4 @@
+import 'package:app2/modules/auth/widget/search.dart';
 import 'package:app2/themes/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,14 +8,23 @@ import '../widget/info_field.dart';
 import '../widget/items.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../widget/most.dart';
+
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return 
+    Scaffold(
+drawer: Container(
+  width: 200,
+
+  color: Colors.blue,
+),
+      body: SingleChildScrollView(
+      child:Padding(
         padding:EdgeInsets.fromLTRB(28, 72, 28, 0),
         child: Column(
           children: [
@@ -28,28 +38,23 @@ class Home extends StatelessWidget {
             ),
             Spacing.h32,
       Row(
+        mainAxisSize:MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: [
-// Container(
-//       decoration: BoxDecoration(
-//         // color: Colors.grey[200],
-//         borderRadius: BorderRadius.circular(1),
-//       ),
-//       child: TextField(
-//         decoration: const InputDecoration(
-//           hintText: 'Search',
-//           border: InputBorder.none,
-//           icon: Icon(Icons.search),
-//         ),
-//       ),
-//     ),
+    SearchBar(onChanged: (value) {
+    
+  },),
+
     Icon(Icons.shopping_cart_outlined)
   ],
       ),
    Spacing.h24,
-   MyCarousel()
+ ItemCarousel(),
+ Spacing.h42,
+ MostItem()
           ],
         ),
       ),
-    );
+      )  );
   }
 }

@@ -13,7 +13,7 @@ final Function onPressed;
 final link;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){ Navigator.pushNamed(context,link);}, 
+    return ElevatedButton(onPressed: () => onPressed(), 
     child: Text(title,
     style: TextStyles.t20M,),
     style: ElevatedButton.styleFrom(

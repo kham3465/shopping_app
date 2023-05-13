@@ -1,4 +1,5 @@
-import 'package:app2/modules/auth/screen/auth_button.dart';
+import 'package:app2/modules/auth/bloc/auth_cubit.dart';
+import 'package:app2/modules/auth/widget/auth_button.dart';
 import 'package:app2/modules/auth/widget/auth_divider.dart';
 import 'package:app2/modules/auth/widget/info_field.dart';
 import 'package:app2/modules/auth/widget/passWord_field.dart';
@@ -9,10 +10,35 @@ import 'package:flutter/material.dart';
 import 'package:app2/route/app_router.dart';
 // ignore: unused_import
 import 'package:app2/route/router_name.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatelessWidget {
   LoginForm({super.key,});
-final TextEditingController _usernameController=TextEditingController(text: '');
+  final TextEditingController _usernameController =
+      TextEditingController(text: 'nguyengiakham2002@gmail.com');
+  final  _passwordController = TextEditingController(text: '88888888');
+  void _handleLoginButtonTap(BuildContext context) {
+    print(
+        "Login with ${_usernameController.text} - ${_passwordController.text} ");
+    _login(context);
+  }
+ void _login(BuildContext context) async {
+    final username = _usernameController.text;
+    final password = _passwordController.text;
+    final authCubit = context.read<AuthCubit>();
+    authCubit.login(username, password);
+  }
+
+
+
+   void _showErrorMessage(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 10),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,7 +47,7 @@ final TextEditingController _usernameController=TextEditingController(text: '');
       children: [
         InfoField(controller:_usernameController,hintText: 'Enter username',),
         Spacing.h16,
-         PasswordField(controller:TextEditingController(),hintText: 'Enter your password',),
+         PasswordField(controller:_passwordController,hintText: 'Enter your password',),
          Spacing.h16,
          
               Row(
@@ -40,10 +66,10 @@ final TextEditingController _usernameController=TextEditingController(text: '');
             
           
 Spacing.h32,
-         AuthButton(link: '/product',
+         AuthButton(link: ' ',
           title: 'Sign In',
           onPressed: (){
-            print('Sign In');
+            _handleLoginButtonTap(context);
           },
          ),
          Spacing.h32,
