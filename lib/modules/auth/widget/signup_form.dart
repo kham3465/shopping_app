@@ -13,16 +13,17 @@ import '../../../themes/spacing.dart';
 
 class SignUpForm extends StatelessWidget {
    SignUpForm({super.key});
-final TextEditingController _usernameController=TextEditingController(text: '');
+// final TextEditingController _usernameController=TextEditingController(text: '');
+// final TextEditingController _numberphone=TextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          InfoField(controller:_usernameController,hintText: 'Email',),
+          InfoField(controller:TextEditingController(),hintText: 'Email',),
           Spacing.h16,
-          InfoField(controller:_usernameController,hintText: 'Name',),
+          InfoField(controller:TextEditingController(),hintText: 'Name',),
           Spacing.h16,
            PasswordField(controller:TextEditingController(),hintText: 'Password',),
            Spacing.h16,
@@ -32,7 +33,7 @@ final TextEditingController _usernameController=TextEditingController(text: '');
            AuthButton(link: '/logIn',
             title: 'Sign Up',
             onPressed: (){
-              print('Sign Up');
+              
             },
            ),
            Spacing.h32,

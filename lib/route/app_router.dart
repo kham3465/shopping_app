@@ -8,6 +8,7 @@ import 'package:app2/modules/auth/screen/product.dart';
 import 'package:app2/modules/auth/screen/sign_up_screen.dart';
 import 'package:app2/modules/auth/widget/items.dart';
 import 'package:app2/route/router_name.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +19,14 @@ import '../modules/auth/screen/home.dart';
 class AppRouter{
   AppRouter._instance();
   static final AppRouter instance=AppRouter._instance();
-final AppCubit _appCubit=AppCubit();
+final  _appCubit=AppCubit();
+final  _cartCubit=CartCubit();
 
   Route? onGenerateRoute(RouteSettings settings){
    switch (settings.name) {
      case RouteName.signUp:
-       return MaterialPageRoute(builder: (context)=>const SignUp(),
+       return MaterialPageRoute(
+        builder: (context)=>const SignUp(),
        settings: const RouteSettings(name: RouteName.signUp)
        );
       case RouteName.login:
@@ -38,31 +41,54 @@ final AppCubit _appCubit=AppCubit();
        );
     case RouteName.product:
        return MaterialPageRoute(
+
+    //  builder: (context)=>const Product(),
+
         builder: (context)=>MultiProvider(
       providers: [
-        BlocProvider<ItemCubit>(
-          create: (context) => ItemCubit(),
-        ),],
+                    BlocProvider.value(
+                      value: _appCubit,
+                    ),
+                    BlocProvider.value(
+                      value: _cartCubit,
+                    ),
+                  ],
         child:const Product(),),
+
        settings: const RouteSettings(name: RouteName.product)
        );
-        case RouteName.home:
-       return MaterialPageRoute(
-        builder: (context)=>MultiProvider(
-      providers: [
-        BlocProvider<ItemCubit>(
-          create: (context) => ItemCubit(),
-        ),],
-        child:const Home(),),
-       settings: const RouteSettings(name: RouteName.home)
-        ) ;
+
+
+         case RouteName.home:
+        return MaterialPageRoute(
+builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(
+                      value: _appCubit,
+                    ),
+                    BlocProvider.value(
+                      value: _cartCubit,
+                    ),
+                  ],
+                  child: Home(),
+                ),
+            
+            settings: const RouteSettings(name: RouteName.home));
+
+
+
+      
             case RouteName.cart:
      return MaterialPageRoute(
         builder: (context)=>MultiProvider(
-      providers: [
-        BlocProvider<ItemCubit>(
-          create: (context) => ItemCubit(),
-        ),],
+      providers:[
+                    BlocProvider.value(
+                      value: _appCubit,
+                    ),
+                    BlocProvider.value(
+                      value: _cartCubit,
+                    ),
+                  ],
         child:const Cart(),),
        settings: const RouteSettings(name: RouteName.cart)
        );

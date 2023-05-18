@@ -2,24 +2,38 @@ import 'package:app2/modules/auth/widget/color_option.dart';
 import 'package:app2/modules/auth/widget/items.dart';
 import 'package:app2/modules/auth/widget/paragrap.dart';
 import 'package:app2/modules/auth/widget/price.dart';
+import 'package:app2/route/router_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/app_cubit.dart';
+import '../../../bloc/app_state.dart';
 import '../../../themes/app_colors.dart';
 import '../../../themes/spacing.dart';
 
 class ProductInfo extends StatelessWidget {
   const ProductInfo({super.key});
-
+void addItemToCard(Item item, BuildContext context) {
+ 
+    final cartCubit = context.read<CartCubit>();
+    cartCubit.addProduct(item);
+    Navigator.pushNamed(context, RouteName.cart);
+}
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ItemCubit,ItemState>(
-        builder: (context, state) {
+    return 
+  BlocBuilder<CartCubit,List<Item>>(
+      builder: (context, state) {
+        print(state);
+        final item = state;
+
+
+       final items=item.last;
           return 
-          SingleChildScrollView(
+            SingleChildScrollView(
 
       child: 
       Column(
@@ -64,9 +78,14 @@ class ProductInfo extends StatelessWidget {
       left: 25,
       child:GestureDetector(onDoubleTap: () {
         
-      },child: Text(
-        '+ Add to Cart',
-        style: TextStyle(fontSize: 24, color: Colors.white),
+      },child: InkWell(
+        onTap:(){
+        addItemToCard(items, context);
+        },
+        child: Text(
+          '+ Add to Cart',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
       ),
       ),
       
@@ -77,8 +96,8 @@ class ProductInfo extends StatelessWidget {
         ],
       ),
     );
-  });
-    }
-    }
-   
+  }
+  );   }
+ 
+}  
 

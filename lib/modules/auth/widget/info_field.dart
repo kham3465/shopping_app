@@ -45,7 +45,7 @@ _isFocused=_focusNode.hasFocus;
 child: TextField(
   controller: widget.controller,
   decoration: const InputDecoration(
-    border: InputBorder.none,hintText: 'Enter username',
+    border: InputBorder.none,hintText: 'Username',
     contentPadding: EdgeInsets.all(16),
     
   ),

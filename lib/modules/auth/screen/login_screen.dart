@@ -1,9 +1,11 @@
+import 'package:app2/bloc/app_cubit.dart';
 import 'package:app2/modules/auth/bloc/auth_cubit.dart';
 import 'package:app2/modules/auth/bloc/auth_state.dart';
 import 'package:app2/modules/auth/models/auth_error.dart';
 import 'package:app2/modules/auth/widget/auth_login.dart';
 import 'package:app2/modules/auth/widget/login_form.dart';
 import 'package:app2/themes/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app2/themes/spacing.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,15 +32,21 @@ class LoginScreen extends StatelessWidget {
       },
     );
   } 
+  void _navigatorHome(BuildContext context, User user) {
+    print("Navigate to main screen");
+    // update app state
+    final appCubit = context.read<AppCubit>();
+  appCubit.authenticate(user, "token 12345678");
+
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        RouteName.home, (route) => route.settings.name == RouteName.home);
+  }
 
 
   void _hideLoadingDialog(BuildContext context) {
     Navigator.pop(context);
   }
-   void _navigateToMain(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        RouteName.home, (route) => route.settings.name == RouteName.home);
-  }
+
 
 
   void _showErrorDialog(BuildContext context, AuthError error) {
@@ -86,7 +94,8 @@ class LoginScreen extends StatelessWidget {
                 if(state is AuthStateLoginSuccess){
                   print("aaaaa");
                    _hideLoadingDialog(context);
-                   _navigateToMain(context);
+                 _navigatorHome(context,state.user!);
+                  
                 }
                  },
               builder: (context, state) {

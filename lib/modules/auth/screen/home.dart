@@ -1,5 +1,7 @@
 import 'package:app2/modules/auth/widget/search.dart';
+import 'package:app2/route/router_name.dart';
 import 'package:app2/themes/spacing.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -45,7 +47,10 @@ drawer: Container(
     
   },),
 
-    Icon(Icons.shopping_cart_outlined)
+    InkWell(onTap: () {
+      Navigator.pushNamed(context,RouteName.cart);
+    },
+      child: Icon(Icons.shopping_cart_outlined))
   ],
       ),
    Spacing.h24,

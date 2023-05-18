@@ -1,84 +1,140 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:app2/route/router_name.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/app_cubit.dart';
+import '../../../bloc/app_state.dart';
 import '../../../themes/spacing.dart';
 
 class Item {
+  final String id;
  final String linkImage;
  final  String name;
  final  String description;
  final  double price;
-  Item({
+  double quantity=0;
+  Item( {
+    required this.id,
     required this.linkImage,
     required this.name,
     required this.description,
     required this.price,
-  });
-}
-class ItemState {
-  final  List<Item> Items;
- List<Item>? selecteItem;
- final Item? selecteProducts;
-
-  ItemState({
-    this.Items=const [],
-    this.selecteItem=const [],
-   this.selecteProducts,
+    required this.quantity, 
   });
 
 
-ItemState copyWith({  List<Item>? Items,List<Item>? selecteItem,Item? selecteProducts }){
-  return ItemState(
-Items: Items?? this.Items,
-selecteItem: selecteItem?? this.selecteItem,
- selecteProducts: selecteProducts?? this.selecteProducts,
-  );
-}
-}
-
-class ItemCubit extends Cubit<ItemState>{
-  ItemCubit():super(ItemState(
-    Items: [
-      Item(linkImage:'assets/images/folo 1.png', name:'Item 1', description: 'description', price:50.000),
-      Item(linkImage:'assets/images/folo 2.png', name:'Item 2', description: 'description', price:100.000),
-      Item(linkImage:'assets/images/folo 3.png', name:'Item 3', description: 'description', price:150.000),
-      Item(linkImage:'assets/images/folo 4.png', name:'Item 4', description: 'description', price:200.000),
-      Item(linkImage:'assets/images/folo 1.png', name:'Item 5', description: 'description', price:250.000)
-    ], 
-  ));
-  void selectItem(Item item){
- List<Item>? selectedItems=state.selecteItem;
-    // if(selectedItems.contains(item)){
-    //   selectedItems.remove(item);
-    // }
-    // else{
-     selectedItems = List.from(selectedItems ?? [])..add(item);
-
-  // }
-    emit(state.copyWith(selecteItem:selectedItems));
+  Item copyWith({
+    String? id,
+    String? linkImage,
+    String? name,
+    String? description,
+    double? price,
+    double? quantity
+  }) {
+    return Item(
+     id: id ?? this.id,
+     linkImage: linkImage ?? this.linkImage,
+     name: name ?? this.name,
+    description:  description ?? this.description,
+     price: price ?? this.price,
+     quantity: quantity ?? this.quantity,
+    );
   }
-  void selecteProduct(Item item){
-emit(state.copyWith(selecteProducts:item ));
-  }
+}
+class CartCubit extends Cubit<List<Item>> {
+  CartCubit() : super([]);
+
+  void addProduct(Item item) {
+  final updatedState = List<Item>.from(state);
+
+  if (updatedState.any((e) => e.id == item.id)) {
+   
+    final index = updatedState.indexWhere((e) => e.id == item.id);
+    final existingItem = updatedState[index];
+    updatedState[index] = existingItem.copyWith(quantity: existingItem.quantity + 1);
+  } else {
   
+    updatedState.add(item.copyWith(quantity: 1));
+  }
+
+  emit(updatedState);
 }
+
+    
+
+
+  void incrementQuantity(Item item) {
+    final List<Item> newState = [];
+    for (final e in state) {
+      if (e.id == item.id) {
+        e.quantity += 1;
+        newState.add(e);
+        continue;
+      }
+      newState.add(e);
+    }
+    emit(newState);
+  }
+   void decrementQuantity(Item item) {
+    final List<Item> newState = [];
+    for (final e in state) {
+      if (e.id == item.id) {
+        e.quantity -= 1;
+        newState.add(e);
+        continue;
+      }
+      newState.add(e);
+    }
+    emit(newState);
+  }
+}
+   
+
 
 class ItemCarousel extends StatelessWidget {
-  const ItemCarousel({Key? key}) : super(key: key);
+   ItemCarousel({Key? key}) : super(key: key);
 
+
+
+final Items=[
+      Item(id:"1",linkImage:'assets/images/folo 1.png', name:'Đầu tư', description: 'description', price:50.000,quantity:0),
+      Item(id:"2",linkImage:'assets/images/folo 2.png', name:'Tủ lạnh', description: 'description', price:100.000,quantity:0),
+      Item(id:"3",linkImage:'assets/images/folo 3.png', name:'Tủ đứng', description: 'description', price:150.000,quantity:0),
+      Item(id:"4",linkImage:'assets/images/folo 4.png', name:'Dược phẩm', description: 'description', price:200.000,quantity:0),
+      Item(id:"5",linkImage:'assets/images/folo 1.png', name:'Tiết Kiệm', description: 'description', price:250.000,quantity:0)
+];
+
+  void addItemToCard(Item item, BuildContext context) {
+ 
+    final cartCubit = context.read<CartCubit>();
+    cartCubit.addProduct(item);
+    Navigator.pushNamed(context, RouteName.cart);
+}
+
+// ignore: non_constant_identifier_names
+void _Itemselect(Item item,BuildContext context){
+final cartCubitSelect=context.read<CartCubit>();
+print('${item.name}');
+cartCubitSelect.addProduct(item);
+Navigator.pushNamed(context, RouteName.product);
+}
+
+
+
+
+  
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ItemCubit, ItemState>(
-      builder: (context, state) {
-        return CarouselSlider.builder(
+    return 
+       BlocBuilder<AppCubit,AppState>(
+        builder: (context, state) {return 
+          CarouselSlider.builder(
           key: UniqueKey(),
-          itemCount: state.Items.length,
+          itemCount: Items.length,
           itemBuilder: (context, index, realIndex) {
-            final item = state.Items[index];
+            final item =Items[index];
 
             return Container(
               color: Color.fromRGBO(255, 255, 255, 1),
@@ -91,9 +147,9 @@ class ItemCarousel extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        context.read<ItemCubit>().selecteProduct(item);
-                        Navigator.pushNamed(context, '/product');
-                        print(state.selecteItem);
+                      _Itemselect(item, context);
+                     
+                      print(state);
                       },
                       child: AspectRatio(
                         aspectRatio: 170 / 200,
@@ -122,11 +178,10 @@ class ItemCarousel extends StatelessWidget {
                             fontSize: 20,
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
-                            context.read<ItemCubit>().selectItem(item);
-                            Navigator.pushNamed(context, '/cart');
-                            print(state.selecteItem.toString());
+                      addItemToCard(item, context);
+                      print(state);
                           },
                           child: const Icon(Icons.add_circle_sharp),
                         ),
@@ -138,14 +193,17 @@ class ItemCarousel extends StatelessWidget {
             );
           },
           options: CarouselOptions(
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 1),
+            autoPlay:true,
+            autoPlayInterval: const Duration(seconds: 3),
             aspectRatio: 196 / 200,
             enlargeCenterPage: true,
             enableInfiniteScroll: false,
           ),
-        );
+        )
+        ;
+        
       },
-    );
+    )
+    ;
   }
 }

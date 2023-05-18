@@ -1,3 +1,4 @@
+import 'package:app2/bloc/app_cubit.dart';
 import 'package:app2/modules/auth/bloc/auth_cubit.dart';
 import 'package:app2/modules/auth/widget/auth_button.dart';
 import 'package:app2/modules/auth/widget/auth_divider.dart';
@@ -5,6 +6,7 @@ import 'package:app2/modules/auth/widget/info_field.dart';
 import 'package:app2/modules/auth/widget/passWord_field.dart';
 import 'package:app2/modules/auth/widget/sso_logo.dart';
 import 'package:app2/themes/spacing.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:app2/route/app_router.dart';
@@ -15,8 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginForm extends StatelessWidget {
   LoginForm({super.key,});
   final TextEditingController _usernameController =
-      TextEditingController(text: 'nguyengiakham2002@gmail.com');
-  final  _passwordController = TextEditingController(text: '88888888');
+      TextEditingController(text: '');
+  final  _passwordController = TextEditingController(text: '');
   void _handleLoginButtonTap(BuildContext context) {
     print(
         "Login with ${_usernameController.text} - ${_passwordController.text} ");
@@ -28,7 +30,14 @@ class LoginForm extends StatelessWidget {
     final authCubit = context.read<AuthCubit>();
     authCubit.login(username, password);
   }
-
+  void _pushToMainScreen(User user, BuildContext context) {
+    print("Navigate to main screen");
+    // update app state
+    final appCubit = context.read<AppCubit>();
+    appCubit.authenticate(user, "token 12345678");
+    //
+    Navigator.pushNamed(context, RouteName.home, arguments: user);
+  }
 
 
    void _showErrorMessage(String message, BuildContext context) {
@@ -57,7 +66,7 @@ class LoginForm extends StatelessWidget {
                   GestureDetector(
                     
                       onTap: (){
-                        Navigator.pop(context,'/');
+                        Navigator.pushNamed(context,RouteName.signUp);
                       },
                       child: const Text('Recovery Password',style: TextStyle(color:Color.fromRGBO(47, 107, 255, 1)),),
                      ),

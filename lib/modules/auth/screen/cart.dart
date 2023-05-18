@@ -1,65 +1,120 @@
 import 'package:app2/modules/auth/widget/items.dart';
+import 'package:app2/themes/app_colors.dart';
+import 'package:app2/themes/spacing.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app2/route/app_router.dart';
 
-import '../../../themes/spacing.dart';
+import '../../../route/router_name.dart';
+
+
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
 
+ void _plus(BuildContext context, Item item) {
+    final cartCubit = context.read<CartCubit>();
+    cartCubit.incrementQuantity(item);
+  }
+  void _down(BuildContext context, Item item) {
+    final cartCubit = context.read<CartCubit>();
+    cartCubit.decrementQuantity(item);
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: BlocConsumer<ItemCubit, ItemState>(
-        listener: (context, state) {
-          if (state.selecteItem == null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('No product selected')),
-            );
-          }
-        },
+      appBar: AppBar(
+        backgroundColor: AppColors.primary100,
+      title: Text("Cart Screen"),
+
+       
+        
+      ),
+      body: SafeArea(child: 
+      BlocBuilder<CartCubit, List<Item>>(
         builder: (context, state) {
-          if (state.selecteItem == null) {
-            return Text('rong');
-          } else {
-            return ListView.builder(
-              itemCount: state.selecteItem?.length,
-              itemBuilder: (context, index) {
-                final itemchose = state.selecteItem![index];
-                return Container(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    width: 196,
-                    height: 337,
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(8, 14, 8, 12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AspectRatio(
-                              aspectRatio: 170 / 200,
-                              child: Image.asset(itemchose.linkImage),
-                            ),
-                            Spacing.h8,
-                            Text(
-                              itemchose.name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
+          print(state);
+final items=state;
+        
+
+          return ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+
+              return Container(
+                child: Row(
+                  children: [Spacing.v12,
+                    Icon(Icons.check_box_outline_blank),
+                    Spacing.v24,
+                    Image.asset(item.linkImage, width: 129,
+                height: 148,),Spacing.v24,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                      item.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                      ),
+                    ),
+                        Spacing.h32,
+                      Text(
+                          '\$${item.price}',
+                          style: TextStyle(color: AppColors.primary500,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 20,
+                          ),
+                        ),
+                       
+                        Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Spacing.v102,
+                              InkWell(
+                                child: const Icon(Icons.remove),
+                                onTap: () =>{
+                                  _plus(context, item)
+                                }
+                                    // _handleAddProduct(context, product),
                               ),
-                            ),
-                            Spacing.h12,
-                            Text(itemchose.price.toString())
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              InkWell(
+                                child: Icon(Icons.add),
+                                onTap: () => {
+                                  _down(context, item)
+                                },
+                                )
+                            ],
+                          ),
                           ],
-                        )));
-              },
-            );
-          }
+                        )
+                      ],
+                    )
+              
+                );
+                // leading: Image.asset(item.linkImage),
+                // title: Text(item.name),
+                // subtitle: Text(item.description),
+                // trailing: Text('\$${item.price.toStringAsFixed(2)}'),
+                
+                // onTap: () {
+               
+                // },
+
+                
+              
+            },
+          );
         },
       ),
-    );
+    ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:app2/modules/auth/widget/color_option.dart';
 import 'package:app2/modules/auth/widget/items.dart';
 import 'package:app2/modules/auth/widget/paragrap.dart';
+import 'package:app2/route/router_name.dart';
 import 'package:app2/themes/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -18,13 +19,7 @@ class Product extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
     Scaffold(
-      body:BlocBuilder<ItemCubit, ItemState>(
-        builder: (context, state) {
-      if(state.selecteProducts==null){
-        return Text('exit 1');
-      }
-      else{
-      return Stack(
+      body: Stack(
         children: [
           _buildBackground(),
           Spacing.h42,
@@ -42,7 +37,10 @@ class Product extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [   
-                  Icon(Icons.arrow_back),                 
+                  InkWell(onTap: () {
+                    Navigator.pushNamed(context,RouteName.home);
+                  },
+                    child: Icon(Icons.arrow_back)),                 
                   Text('Product',
                   style: TextStyle(fontSize: 30),
                   ),
@@ -63,13 +61,28 @@ class Product extends StatelessWidget {
       ),
       
 
-      ]);
+      ]
+      )
+    );
     
-    }
-   } )    );
+    
+    
+  
 }
+
+
+
+
 Widget _buildBackground(){
-  return Container(
+  return BlocBuilder<CartCubit,List<Item>>(
+      builder: (context, state) {
+         print(state);
+        final item = state;
+
+
+       final items=item.last;
+        return
+  Container(
     width: double.maxFinite,
     height:double.maxFinite,
     decoration: const BoxDecoration(
@@ -83,12 +96,13 @@ Widget _buildBackground(){
       height: 455,
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(32),
-    image: const DecorationImage(
-      image: AssetImage('assets/images/image 1.png'),
+    image:  DecorationImage(
+      image: AssetImage(items.linkImage),
       fit: BoxFit.cover,
     ),
   ),
   )
   );
+});
 }
 }
