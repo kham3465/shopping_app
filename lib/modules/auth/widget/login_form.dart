@@ -54,7 +54,7 @@ class LoginForm extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
       children: [
-        InfoField(controller:_usernameController,hintText: 'Enter username',),
+        InfoField(controller:_usernameController,hintText: 'Email',),
         Spacing.h16,
          PasswordField(controller:_passwordController,hintText: 'Enter your password',),
          Spacing.h16,
@@ -68,7 +68,7 @@ class LoginForm extends StatelessWidget {
                       onTap: (){
                         Navigator.pushNamed(context,RouteName.signUp);
                       },
-                      child: const Text('Recovery Password',style: TextStyle(color:Color.fromRGBO(47, 107, 255, 1)),),
+                      child: const Text('Register',style: TextStyle(color:Color.fromRGBO(47, 107, 255, 1)),),
                      ),
                 ],
               ),

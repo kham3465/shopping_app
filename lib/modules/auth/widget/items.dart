@@ -74,6 +74,7 @@ class CartCubit extends Cubit<List<Item>> {
         continue;
       }
       newState.add(e);
+
     }
     emit(newState);
   }

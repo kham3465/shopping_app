@@ -1,7 +1,6 @@
 import 'package:app2/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:app2/themes/text_styles.dart';
 class InfoField extends StatefulWidget {
   const InfoField({super.key,required this.controller,required this.hintText});
@@ -44,8 +43,8 @@ _isFocused=_focusNode.hasFocus;
       color: Colors.white ),
 child: TextField(
   controller: widget.controller,
-  decoration: const InputDecoration(
-    border: InputBorder.none,hintText: 'Username',
+  decoration:  InputDecoration(
+    border: InputBorder.none,hintText:widget.hintText,
     contentPadding: EdgeInsets.all(16),
     
   ),

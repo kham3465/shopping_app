@@ -13,6 +13,7 @@ class Cart extends StatelessWidget {
 
  void _plus(BuildContext context, Item item) {
     final cartCubit = context.read<CartCubit>();
+    
     cartCubit.incrementQuantity(item);
   }
   void _down(BuildContext context, Item item) {
@@ -72,28 +73,35 @@ final items=state;
                           ),
                         ),
                        
-                        Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Spacing.v102,
-                              InkWell(
-                                child: const Icon(Icons.remove),
-                                onTap: () =>{
-                                  _plus(context, item)
-                                }
-                                    // _handleAddProduct(context, product),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              InkWell(
-                                child: Icon(Icons.add),
-                                onTap: () => {
-                                  _down(context, item)
-                                },
-                                )
-                            ],
-                          ),
+                        DecoratedBox(
+
+                          decoration:BoxDecoration(border: Border.all(color: AppColors.primary500)),
+                          child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                // Spacing.v102,
+                                InkWell(
+                                  child: const Icon(Icons.remove),
+                                  onTap: () =>{
+                                    _plus(context, item),
+                                    
+                                  }
+                                      // _handleAddProduct(context, product),
+                                ),
+                                const SizedBox(
+                                  
+                                  width: 16,
+                                ),
+                                Text('${item.quantity}'),
+                                InkWell(
+                                  child: Icon(Icons.add),
+                                  onTap: () => {
+                                    _down(context, item)
+                                  },
+                                  )
+                              ],
+                            ),
+                        ),
                           ],
                         )
                       ],
