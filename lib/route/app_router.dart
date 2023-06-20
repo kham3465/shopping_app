@@ -3,6 +3,8 @@
 
 import 'package:app2/bloc/app_cubit.dart';
 import 'package:app2/modules/auth/bloc/auth_cubit.dart';
+import 'package:app2/modules/auth/screen/air.dart';
+import 'package:app2/modules/auth/screen/hello.dart';
 import 'package:app2/modules/auth/screen/login_screen.dart';
 import 'package:app2/modules/auth/screen/product.dart';
 import 'package:app2/modules/auth/screen/sign_up_screen.dart';
@@ -24,9 +26,19 @@ final  _cartCubit=CartCubit();
 
   Route? onGenerateRoute(RouteSettings settings){
    switch (settings.name) {
-     case RouteName.signUp:
+    //  case RouteName.signUp:
+    //    return MaterialPageRoute(
+    //     builder: (context)=>const SignUp(),
+    //    settings: const RouteSettings(name: RouteName.signUp)
+    //    );
+       case RouteName.signUp:
        return MaterialPageRoute(
-        builder: (context)=>const SignUp(),
+         builder: (context) => MultiBlocProvider(
+               providers: [
+                BlocProvider(create: (context)=>AuthCubit()),
+                BlocProvider.value(value: _appCubit),
+               ],
+               child: SignUp(),),
        settings: const RouteSettings(name: RouteName.signUp)
        );
       case RouteName.login:
@@ -58,7 +70,19 @@ final  _cartCubit=CartCubit();
        settings: const RouteSettings(name: RouteName.product)
        );
 
+case RouteName.air:
+return MaterialPageRoute(
+  builder:(context) => const Air(),
+  
+settings: const RouteSettings(name: RouteName.air)
+);
 
+case RouteName.hello:
+return MaterialPageRoute(
+  builder:(context) => const Hello(),
+  
+settings: const RouteSettings(name: RouteName.hello)
+);
          case RouteName.home:
         return MaterialPageRoute(
 builder: (context) => MultiBlocProvider(

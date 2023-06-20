@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
   appCubit.authenticate(user, "token 12345678");
 
     Navigator.of(context).pushNamedAndRemoveUntil(
-        RouteName.home, (route) => route.settings.name == RouteName.home);
+        RouteName.hello, (route) => route.settings.name == RouteName.hello);
   }
 
 

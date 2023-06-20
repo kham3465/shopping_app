@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class TextStyles{
   static const t16R=TextStyle(
-    fontWeight:FontWeight.normal,
+    fontWeight:FontWeight.w700,
     fontSize:16,
+    
+    color: Color.fromARGB(255, 0, 0, 0)
   );
     static const t20R=TextStyle(
     fontFamily: 'Roboto',

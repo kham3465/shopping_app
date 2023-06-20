@@ -7,8 +7,10 @@ import 'package:app2/modules/auth/widget/sso_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:app2/modules/auth/bloc/auth_cubit.dart';
 
 import '../../../themes/spacing.dart';
+import '../models/auth_error.dart';
 
 
 
@@ -21,28 +23,31 @@ void _signUp(BuildContext context)async{
   final email=_emailController.text;
   final passWord=_passwordControler.text;
   register(email, passWord);
+  
 }
-void _hideLoadingDialog(BuildContext context) {
-    Navigator.pop(context);
-  }
 
- void _showLoadingDialog(BuildContext context) {
+
+ 
+  void _showErrorDialog(BuildContext context) {
     showDialog(
-      context: context,
-      barrierDismissible: false,
+      context:context,
       builder: (BuildContext context) {
-        return const AlertDialog(
-          content: SizedBox(
-            height: 100,
-            width: 100,
-            child: Center(
-              child: CircularProgressIndicator(),
+        return AlertDialog(
+          
+          title: Text('Tạo tài khoản thành công'),
+          content: Text('created account!'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.pushNamed(context,'/');
+              },
             ),
-          ),
+          ],
         );
       },
     );
-  } 
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,9 +66,8 @@ void _hideLoadingDialog(BuildContext context) {
            AuthButton(link: '/logIn',
             title: 'Sign Up',
             onPressed: (){
-              
-              
               _signUp(context);
+_showErrorDialog(context);
             },
            ),
            Spacing.h32,
